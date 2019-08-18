@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- Normal user registration page. -->
+<html>
+   <!-- Before the page loads, read the Metamask login account information. -->
+      <script type="text/javascript">
+        function check(){
+         let curact=web3.eth.accounts.currentProvider.selectedAddress;
+         $('#cur-addr').html("Current login account address of metamask (If the wallet account is not displayed or not shown, please refresh this page to keep it synchronized after making changes or logging in Metamask.):"+"<br\>"+curact);
+       }　
+       </script> 
+<head>
+ <title>Credential Store Registration page</title>
+ <!-- Bootstrap is introduced to beautify HTML element controls. -->
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+ <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="./app.js"></script>
+</head>
+<body onload="check()">
+   <!-- The HTML control elements of the registration page. -->
+    <div class="container">
+    <h1 style="text-align:center;font-family:sans-serif; font-weight:bold; font-size:50px;">New user registration</h1>
+    <p id="cur-addr"></p>
+     <div class="row">
+        <form class="form-horizontal col-sm-5" id="register-page">
+         <div class="form-group">
+          <label for="user-name1" class="col-sm-2 control-label">User name</label>
+          <div class="col-sm-10">
+           <input type="text" name="user-name1" class="form-control" id="user-name1" placeholder="Input a new Username" required="required"></input>
+           <button type="button" class="btn btn-primary" id="find-user">Is this username available</button>
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="pwd1" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+             <input type="password" name="pwd1" class="form-control" id="pwd1" placeholder="Input a new Password" required="required" value=""></input>
+            </div>
+         </div>
+         <div class="form-group">
+            <label for="repwd" class="col-sm-2 control-label">Password again</label>
+            <div class="col-sm-10">
+             <input type="password" name="repwd" class="form-control" id="repwd" placeholder="Input the Password again" required="required" value=""></input>
+            </div>
+         </div>
+         <div class="form-group">
+            <label for="schorcomname" class="col-sm-2 control-label">School or Company Name</label>
+            <div class="col-sm-10">
+               <input type="text" name="schorcomname" class="form-control" id="schorcomname" placeholder="Input your company or school name" required="required" value=""></input>
+            </div>
+         </div>
+         <div class="form-group">
+            <label for="account-type1" class="col-sm-2 control-label">Normal Account Type</label>
+            <div class="col-sm-10">
+                <input type="radio" name="account-type1" value="students" checked>Students</input>
+                <input type="radio" name="account-type1" value="others">Company HR or others</input>
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+             <button type="submit" class="btn btn-primary" id="register">Register</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</body>
+</html>

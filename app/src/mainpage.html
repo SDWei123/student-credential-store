@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!-- The system home page. -->
+<html>
+    <script type="text/javascript">
+    // Use Session API to read the current user account's information from the Session and conduct login judgment and access control.
+    function check(){
+        var lguser=sessionStorage.getItem('user');
+        var lgacty=sessionStorage.getItem('account-type');
+        var lgusractp=sessionStorage.getItem('useractype');
+      if(lguser == null){
+              alert("The system is not currently logged in, please log in");
+              window.location.href='index.html'
+      }else{
+        $("#current-user").html("Welcome: " + lguser);
+       if(lgacty==0){
+        if(lgusractp==0){
+          $("#current-user-type").html("Current user type: Student");
+        }else{
+          $("#current-user-type").html("Current user type: Company");
+        }
+        document.getElementById("add-student").disabled=true;
+        document.getElementById("search").disabled=false;
+        document.getElementById("log-out").disabled=false;
+        $("#search-area").val("1");
+        document.getElementById("search-info").disabled=false;
+        document.getElementById("search-info").value="";
+      }else{
+        $("#current-user-type").html("Current user type: School Administrator");
+        document.getElementById("add-student").disabled=false;
+        document.getElementById("search").disabled=false;
+        document.getElementById("log-out").disabled=false;
+        $("#search-area").val("1");
+        document.getElementById("search-info").disabled=false;
+        document.getElementById("search-info").value="";
+       }
+       
+        $("#add-student").click(function(){
+          window.location.href='add-student.html'
+        });
+      }
+
+    }
+    </script>  
+<head>    
+ <title>Credential Store</title>
+ <!-- Bootstrap is introduced to beautify HTML element controls. -->
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+ <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <!-- The introduction of the file 'app.js'. -->
+ <script src="./app.js"></script>
+</head>
+<body onload="check()">
+  <!-- The HTML control elements of the home page. -->
+    <div style="height:100px; background-color:#3974e0">
+      <h1 style="text-align:center;font-family:sans-serif; font-weight:bold; font-size:80px;">Student Credential Store</h1>
+    </div>
+
+  <div style="height:45px; background-color:#C0C0C0; margin:0 auto;">
+     <p style="float:left; font-weight:bold; font-size:28px;" id="current-user"></p>
+     <p style="float:right; font-weight:bold; font-size:28px;" id="current-user-type"></p>
+     <button style="margin-left: 10px;margin-top:2px;" class="btn btn-primary" type="button" id="log-out" disabled>Log out</button>
+  </div>
+  
+  <div style="background-color:#DCDCDC; display:flex; justify-content:center;">
+      <div style="background-color:#F5F5F5; height:50px; width:90%; text-align:center; line-height:50px;">
+          <span style="font-weight:bold; font-size:30px; display: inline-block;" id="total-students"></span>
+          <button style="margin-left: 10px;margin-top:-5px;" type="button" class="btn btn-primary"  id="add-student" disabled>Add students</button>
+      </div>
+  </div>
+
+  <!-- Search section -->
+  <div style="background-color:#DCDCDC; display:flex; justify-content:center;" id="search-condition";>
+    <form style="background-color:#F5F5F5; width:90%;" id="search-studentInfo">
+     <div>
+      <h2 style="font-weight:bold; font-size:30px;">Search student Information(Accurate search)</h2>
+        <label for="search-info" style="font-weight:bold; font-size:20px; float:left;">Search Content:</label>
+        <input style="width:600px;height:40px;border:2px solid #e0e0e0;font-size:20px;" type="text" name="search-info" class="form-control" id="search-info" required="required"></input>
+     </div>
+     <div>
+      <label for="search-school-name" style="font-weight:bold; font-size:20px; float:left;" >Search in this school:</label>
+      <select style="width:600px;height:40px;border:2px solid #e0e0e0;font-size:20px;" class="form-control" name="search-school-name" id="search-school-name" required="required">
+      </select>
+     </div>
+     <div>
+      <label for="search-area" style="font-weight:bold; font-size:20px; float:left;">Search Condition:</label>
+          <select style="width:600px;height:40px;border:2px solid #e0e0e0;font-size:20px;" class="form-control" name="search-area" id="search-area">
+              <option value=1>Certificate ID</option>
+              <option value=2>Student name</option>
+              <option value=3>Student Major</option>
+              <option value=4>All students in this school</option>
+         </select>
+     </div>
+     <div>
+      <button style="width:100px; height:50px; float:left" type="submit" class="btn btn-primary"  id="search" disabled>Search</button>
+     </div>
+    </form>
+   </div>
+   
+   <!-- Filter section -->
+   <div style="display:none;" id="search-condition2">
+    <form style="background-color:#F5F5F5; width:90%;" id="Multidata-filtering">
+     <div>
+        <h2 style="font-weight:bold; font-size:30px;">Filter search</h2>
+        <label for="academicper" style="font-weight:bold; font-size:20px; float:left;">Academic performance:</label>
+        <input style="font-size:20px;" type="radio" name="academicper" value="Distinction" checked/>Distinction
+        <input style="font-size:20px;" type="radio" name="academicper" value="Merit"/>Merit
+        <input style="font-size:20px;" type="radio" name="academicper" value="Pass"/>Pass
+        <input style="font-size:20px;" type="radio" name="academicper" value="Notpass"/>Not Pass
+     </div>
+     <br/>
+     <div>
+      <label for="gender-filter" style="font-weight:bold; font-size:20px; float:left;">Gender:</label>
+      <input style="font-size:20px;" type="radio" name="gender-filter" value="Male" checked/>Male
+      <input style="font-size:20px;" type="radio" name="gender-filter" value="Female"/>Female
+     </div>
+     <br/>
+     <div>
+      <label for="student-detype" style="font-weight:bold; font-size:20px; float:left;">Degree Type:</label>
+      <select style="width:400px;height:35px;border:2px solid #e0e0e0;font-size:20px;" class="form-control" name="student-detype" id="student-detype">
+        <option value="Bachelor" selected>Bachelor</option>
+        <option value="Master">Master</option>
+        <option value="Doctor">Doctor</option>
+        <option value="Others">Others</option>
+      </select>
+     </div>
+     <br/>
+     <div>
+      <label for="before-date" style="font-weight:bold; font-size:20px;">Graduate before this date (If this is not filled in, it defaults to before the current time"):</label>
+      <input style="width:600px;height:40px;border:2px solid #e0e0e0;font-size:20px;" type="date" class="form-control" name="before-date" id="before-date"></input>
+     </div>
+     <div>
+      <button style="width:100px; height:50px; float:left" type="submit" class="btn btn-primary"  id="filter">Filter</button>
+     </div>
+    </form>
+   </div>
+
+   <!-- Sort section -->
+   <div style="display:none;" id="sort-button">
+    <form style="background-color:#F5F5F5; width:90%;" id="sort-method-form">
+     <div>
+      <label style="font-weight:bold; font-size:20px; float:left;" for="sort-method">Selection sort method</label>
+       <select style="width:400px;height:35px;border:2px solid #e0e0e0;font-size:20px;" class="form-control" name="sort-method" id="sort-method">
+        <option value="name-ascending" selected>Name(ascending)</option>
+        <option value="name-descending">Name(descending)</option>
+        <option value="gratime-ascending" selected>Graduation time(ascending)</option>
+        <option value="gratime-descending">Graduation time(descending)</option>
+        <option value="grade-ascending" selected>Grade(ascending)</option>
+        <option value="grade-descending">Grade(descending)</option>
+       </select>
+      </div>
+      <br/>
+      <div>
+        <button style="width:100px; height:50px; float:left" type="submit" class="btn btn-primary"  id="sort">Sort</button>
+      </div>
+    </form>
+   </div>
+
+   <!-- List 'Searched results' -->
+   <div style="background-color:#DCDCDC; display:flex; justify-content:center;">
+    <div style="background-color:#F5F5F5; width:90%;">
+      <h2 style="font-weight:bold; font-size:30px;">Searched Results:<span style="font-weight:bold; font-size:30px;" id="sercount"></span></h2>
+      <div id="search-list">
+      </div>
+    </div>
+   </div>
+</body>
+</html>

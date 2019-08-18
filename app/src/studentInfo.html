@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!-- Student information browsing page. -->
+<html>
+    <script>
+      //// Use Session API to read the current user account's information from the Session and conduct login judgment and access control.
+                function checkandlisten(){
+                      var lguser=sessionStorage.getItem('user');
+                      var lgacty=sessionStorage.getItem('account-type');
+                      var lgusractp=sessionStorage.getItem('useractype');
+                      var lgaddress=sessionStorage.getItem('account-address');
+                      let curact=web3.eth.accounts.currentProvider.selectedAddress;  
+                    
+                    var flag = true;
+                    var img = document.getElementById("credential-showimage");//图片元素
+
+                    //Realize the function 'click picture and enlarge'.
+                    img.onclick =  function(){
+                    var imgH = img.height; //Gets the height of the image.
+                    var imgW = img.width; //Gets the width of the image.
+                   if(flag){
+                       //Image magnification function: Set the width and height of the image to 4 times the current width and height.
+                       flag = false;
+                       img.height = imgH*4;
+                       img.width = imgW*4;
+                  }else{
+                       //Image restoration: set the width and height of the image to 1/4 of its current width and height.
+                    flag = true;
+                    img.height = imgH/4;
+                    img.width = imgW/4;
+                  }
+                 }
+          }
+      </script>
+<head>
+ <title>Browsing detailed information about the student</title>
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+ <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="./app.js"></script>
+</head>
+<body onload="checkandlisten();">
+   <!-- The HTML control elements of the page. -->
+ <div class="container">
+  <h1 style="text-align:center;font-family:sans-serif; font-weight:bold; font-size:50px;" class="text-center">Viewing or changing the student informaiton</h1>
+    <div id="current-user"></div>
+    <div id="current-user-type"></div>
+    <div id="current-account"></div>
+  <div class="container">
+    <div id="student-desc" class="col-sm-12">
+        <button type="button" id="btback" class="btn btn-primary">Back Homepage</button>
+    </div>
+    <hr/>
+    <div class="row">
+      <div style="display: none;" class="alert alert-success" id="msg3"></div>
+      <form class="form-horizontal col-sm-5" id="alter-student-in-store">
+        <div class="form-group">
+          <label for="student-id" class="col-sm-2 control-label">Student ID in this store</label>
+          <div class="col-sm-10">
+          <input type="text" name="student-id" class="form-control" id="student-id" required="required" value="" readonly="readonly"></input>
+          </div>
+        </div>
+       <div class="form-group">
+        <label for="student-name" class="col-sm-2 control-label">Student Name</label>
+        <div class="col-sm-10">
+         <input type="text" name="student-name" class="form-control" id="student-name" required="required" value="" readonly="readonly"></input>
+        </div>
+       </div>
+       <div class="form-group">
+        <label for="gender-condition" class="col-sm-2 control-label">Gender</label>
+        <div class="col-sm-10">
+         <select class="form-control" name="gender-condition" id="gender-condition" disabled="disabled">
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+         </select>
+        </div>
+       </div>
+       <div class="form-group">
+          <label for="student-num" class="col-sm-2 control-label">Student Certificate ID</label>
+          <div class="col-sm-10">
+           <input type="text" name="student-num" class="form-control" id="student-num" required="required" value="" readonly="readonly"></input>
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="student-school" class="col-sm-2 control-label">Student Graduated School</label>
+          <div class="col-sm-10">
+           <input type="text" name="student-school" class="form-control" id="student-school" required="required" value="" disabled="disabled"></input>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="student-major" class="col-sm-2 control-label">Student Major</label>
+        <div class="col-sm-10">
+         <input type="text" class="form-control" name="student-major" id="student-major" required="required" readonly="readonly"></input>
+        </div>
+       </div>
+       <div class="form-group">
+        <label for="degree-type" class="col-sm-2 control-label">Degree Level</label>
+        <div class="col-sm-10">
+         <select class="form-control" name="degree-type" id="degree-type" disabled="disabled">
+          <option value="Bachelor">Bachelor</option>
+          <option value="Master">Master</option>
+          <option value="Doctor">Doctor</option>
+          <option value="Others">Others</option>
+         </select>
+        </div>
+       </div>
+       <div class="form-group">
+        <label for="average-grade" class="col-sm-2 control-label">Average Grade(/100)</label>
+        <div class="col-sm-10">
+         <input type="text" class="form-control" name="average-grade" id="average-grade" required="required" disabled="disabled"></input>
+        </div>
+       </div>
+       <div class="form-group">
+        <label for="academic-performance" class="col-sm-2 control-label">Academic Performance</label>
+        <div class="col-sm-10">
+         <select class="form-control" name="academic-performance" id="academic-performance" disabled="disabled">
+          <option value="Distinction">Distinction</option>
+          <option value="Merit">Merit</option>
+          <option value="Pass">Pass</option>
+          <option value="Notpass">Not Pass</option>
+         </select>
+        </div>
+       </div>
+       <div class="form-group">
+        <label for="credential-showimage" class="col-sm-2 control-label">Credential image</label>
+        <div class="col-sm-10">
+        <img src="" width="" id="credential-showimage"/></img>
+        <div id="show_large_image"></div>
+        </div>
+       </div>
+       <div class="form-group">
+        <label for="certi-image" style="display: none;" class="col-sm-2 control-label" id="lab1">Upload the Certificate Picture</label>
+        <div style="display: none;" class="col-sm-10" id="msg4">
+         <input type="file" name="certi-image" class="form-control" id="certi-image">
+         Reupload certificate pictures</input>
+        </div>
+       </div>
+       <div class="form-group">
+          <label for="student-description" class="col-sm-2 control-label">Personal working experiences and Received awards</label>
+          <div class="col-sm-10">
+           <textarea class="form-control" name="student-description" rows="10" id="student-description" required="required" readonly="readonly"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="starttime" class="col-sm-2 control-label">Starting Time of the Degree</label>
+            <div class="col-sm-10">
+                <input type="text" name="starttime" class="form-control" id="starttime" required="required" value="" readonly="readonly"></input>
+            </div>
+        </div>
+        <!-- Reset time control, initially hidden state, when the user clicks the modify button, it is displayed in the current page. -->
+        <div class="form-group">
+            <label for="starttimeset" style="display: none;" class="col-sm-2 control-label" id="lab2">Reset Degree Starting Time</label>
+            <div style="display: none;" class="col-sm-10" id="msg5">
+             <input type="date" class="form-control" name="starttimeset" id="starttimeset"></input>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="finishtime" class="col-sm-2 control-label">Graduation Time</label>
+            <div class="col-sm-10">
+                <input type="text" name="finishtime" class="form-control" id="finishtime" required="required" value="" readonly="readonly"></input>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="finishtimereset" style="display: none;" class="col-sm-2 control-label" id="lab3">Reset Graduation Time</label>
+            <div style="display: none;" class="col-sm-10" id="msg6">
+             <input type="date" class="form-control" name="finishtimereset" id="finishtimereset" ></input>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="adder-address" class="col-sm-2 control-label">The ETH Account used last time.</label>
+          <div class="col-sm-10">
+           <input type="text" class="form-control" name="adder-address" id="adder-address" required="required" disabled="disabled"></input>
+          </div>
+         </div>
+         <div class="form-group">
+          <label for="edit-time" class="col-sm-2 control-label">Last Updated Time</label>
+          <div class="col-sm-10">
+           <input type="text" class="form-control" name="edit-time" id="edit-time" required="required" disabled="disabled"></input>
+          </div>
+         </div>
+       <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+         <button type="button" id="buchange" class="btn btn-primary" disabled>Change this student’s information</button>
+        </div>
+       </div>
+       <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+             <button type="submit" id="busave" class="btn btn-primary" disabled>Save the changed information</button>
+            </div>
+        </div>
+       <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+         <button type="button" id="btdelete" class="btn btn-primary" disabled>Delete this student information</button>
+        </div>
+       </div>
+      </form>
+     </div>
+    <br/>
+  </div>
+</div>
+</body>
+</html>

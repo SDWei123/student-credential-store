@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- Student information adding page. -->
+<html>
+    <script>
+        // Use Session API to read the current user account's information from the Session and conduct login judgment and access control.
+      function checkandlisten(){
+            var lguser=sessionStorage.getItem('user');
+            var lgacty=sessionStorage.getItem('account-type');
+            var lgaddress=sessionStorage.getItem('account-address');
+            //var lgusractp=sessionStorage.getItem('useractype');
+            let curact=web3.eth.accounts.currentProvider.selectedAddress;
+            if(lgacty==0){
+                alert("The current login account is not the administrative account, please login the correct account.");
+                window.location.href='index.html'
+            }else{
+                 $("#current-user-type").append("<div>" + "Current user type: Administor(School)"  + "</div>");
+                 $("#current-user").append("<div>" + "Current user:"  + lguser + "</div>");
+                 $("#current-account").append("<div>" + "Current login account address of metamask (If the wallet account is not displayed or not shown, please refresh this page to keep it synchronized after making changes or logging in Metamask.):"  + curact + "</div>");
+                //console.log(lguser);
+                 $("#student-school").val(lguser);
+                 document.getElementById("add-stu").disabled=false; 
+            }
+      }
+    </script>
+<head>
+ <title>Adding the new student information</title>
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+ <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="./app.js"></script>
+</head>
+<body onload="checkandlisten()">
+    <!-- The HTML control elements of the page 'Adding new students'. -->
+    <h1 style="text-align:center;font-family:sans-serif; font-weight:bold; font-size:50px;">Adding a new student information</h1>
+    <div id="current-user"></div>
+    <div id="current-user-type"></div>
+    <div id="current-account"></div>
+ <div class="container">
+  <div class="container">
+   <div class="row">
+    <form class="form-horizontal col-sm-5" id="add-item-to-store">
+     <div class="form-group">
+      <label for="student-name" class="col-sm-2 control-label">Student Name</label>
+      <div class="col-sm-10">
+       <input type="text" name="student-name" class="form-control" id="student-name" required="required"></input>
+      </div>
+     </div>
+     <div class="form-group">
+        <label for="gender-condition" class="col-sm-2 control-label">Gender</label>
+        <div class="col-sm-10">
+         <select class="form-control" name="gender-condition" id="gender-condition">
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+         </select>
+        </div>
+     </div>
+     <div class="form-group">
+        <label for="student-num" class="col-sm-2 control-label">Student Certificate ID</label>
+        <div class="col-sm-10">
+         <input type="text" name="student-num" class="form-control" id="student-num" required="required"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="student-major" class="col-sm-2 control-label">Student Major</label>
+        <div class="col-sm-10">
+         <input type="text" name="student-major" class="form-control" id="student-major" required="required"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="student-school" class="col-sm-2 control-label">Student Graduated School</label>
+        <div class="col-sm-10">
+         <input type="text" name="student-school" class="form-control" id="student-school" disabled></input>
+        </div>
+    </div>
+     <div class="form-group">
+      <label for="student-description" class="col-sm-2 control-label">Personal Working Experiences and Received Awards</label>
+      <div class="col-sm-10">
+       <textarea class="form-control" name="student-description" rows="10" id="student-description" placeholder="Enter detailed personal experiences" required="required"></textarea>
+      </div>
+     </div>
+     <div class="form-group">
+      <label for="certi-image" class="col-sm-2 control-label">Upload Certificate Picture</label>
+      <div class="col-sm-10">
+       <input type="file" name="certi-image" class="form-control" id="certi-image" required="required">
+       upload certificate pictures</input>
+      </div>
+     </div>
+     <div class="form-group">
+      <label for="degree-type" class="col-sm-2 control-label">Degree Level</label>
+      <div class="col-sm-10">
+       <select class="form-control" name="degree-type" id="degree-type">
+        <option>Bachelor</option>
+        <option>Master</option>
+        <option>Doctor</option>
+        <option>Others</option>
+       </select>
+      </div>
+     </div>
+     <div class="form-group">
+      <label for="average-grade" class="col-sm-2 control-label">Average Grade(/100)</label>
+      <div class="col-sm-10">
+       <input type="text" class="form-control" name="average-grade" id="average-grade" required="required"></input>
+      </div>
+     </div>
+     <div class="form-group">
+            <label for="academic-performance" class="col-sm-2 control-label">Academic Performance</label>
+            <div class="col-sm-10">
+             <select class="form-control" name="academic-performance" id="academic-performance">
+              <option value="Distinction">Distinction</option>
+              <option value="Merit">Merit</option>
+              <option value="Pass">Pass</option>
+              <option value="Notpass">Not Pass</option>
+             </select>
+            </div>
+    </div>
+     <div class="form-group">
+      <label for="starttime" class="col-sm-2 control-label">Starting Time of the Degree</label>
+      <div class="col-sm-10">
+       <input type="date" class="form-control" name="starttime" id="starttime" required="required"></input>
+      </div>
+     </div>
+     <div class="form-group">
+        <label for="finishtime" class="col-sm-2 control-label">Graduation Time</label>
+        <div class="col-sm-10">
+         <input type="date" class="form-control" name="finishtime" id="finishtime" required="required"></input>
+        </div>
+    </div>
+     <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+       <button type="submit" class="btn btn-primary" id="add-stu" disabled>Add Student To Store</button>
+      </div>
+     </div>
+    </form>
+   </div>
+  </div>
+ </div>
+</body>
+</html>
+
