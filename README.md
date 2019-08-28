@@ -1,1 +1,2 @@
 # std-credential-store
+This system is an MSC project software, which belongs to the personal work of Shidong Wei. The system runs on a personal computer. Some configuration works are required before initial use. The configuration steps for the system are visible in the file ‘System Configuration Guidance’. Instructions for running the program are visible in the file ‘System Operation Instruction’. These two files are both in the programme folder.
